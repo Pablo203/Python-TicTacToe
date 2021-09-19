@@ -5,7 +5,8 @@ class Draw:
         self.p2 = p2
         #Get the board ready with certain values from array
     def show(self):
-        board = '''    1   2   3
+        board = '''-------------------------
+    1   2   3
   + - + - + - +
 1 | '''+self.array[0]+''' | '''+self.array[1]+''' | '''+self.array[2]+''' |
   + - + - + - +
