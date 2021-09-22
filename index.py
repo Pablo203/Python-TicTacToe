@@ -235,12 +235,6 @@ def winConditions():
         elif(turn[0] % 2 == 0):
             print(player1 + " won!")
         gameOver()
-    elif(array[0] != " " and array[1] != " " and array[2] != " " and array[3] != " " and array[4] != " " and array[5] != " " and array[6] != " " and array[7] != " " and array[8] != " "):
-        if(turn[0] % 2 == 1):
-            print(player2+ " won!")
-        elif(turn[0] % 2 == 0):
-            print(player1 + " won!")
-        gameOver()
     elif(fieldsTaken[0] == 9):
         tie()
 
