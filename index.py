@@ -4,6 +4,8 @@ import sys
 import board
 #Import random choose bot
 import randomBot
+#Import database
+import db
 
 #initialize variables
 array = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
@@ -126,8 +128,24 @@ def gameOver():
             sys.exit()
 def tie():
     ties[0] += 1
+    player1InDB = db.checkPlayer(player1)
+    player2InDB = db.checkPlayer(player2)
+    if(player1InDB == True and player2InDB == True):
+        db.updatePlayer(player1, "Tie")
+        db.updatePlayer(player2, "Tie")
+    elif(player1InDB == True and player2InDB == False):
+            db.updatePlayer(player2, "Tie")
+            db.addNewPlayer(player1, 0, 0, 1)
+    elif(player1InDB == False and player2InDB == True):
+        db.updatePlayer(player1, "Tie")
+        db.addNewPlayer(player2, 0, 0, 1)
+    elif(player1InDB == False and player2InDB == False):
+            db.addNewPlayer(player2, 0, 0, 1)
+            db.addNewPlayer(player1, 0, 0, 1)
+
     if(gamemode[0] == 1):
         print("Tie")
+
         answer = input("Do you wanna play again? [Yes/No]")
         if(answer == "Yes"):
            resetGame(player1, player2)
@@ -186,54 +204,294 @@ def winConditions():
     if(array[0] == "X" and array[1] == "X" and array[2] == "X") or (array[0] == "O" and array[1] == "O" and array[2] == "O"):
         if(turn[0] % 2 == 1):
             print(player2 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.updatePlayer(player1, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player1, "Lose")
+                db.addNewPlayer(player2, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.addNewPlayer(player1, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player1, 0, 1, 0)
+                db.addNewPlayer(player2, 1, 0, 0)
+
         elif(turn[0] % 2 == 0):
             print(player1 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.updatePlayer(player2, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player2, "Lose")
+                db.addNewPlayer(player1, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.addNewPlayer(player2, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player2, 0, 1, 0)
+                db.addNewPlayer(player1, 1, 0, 0)
+
         gameOver()
     elif(array[3] == "X" and array[4] == "X" and array[5] == "X") or (array[3] == "O" and array[4] == "O" and array[5] == "O"):
         if(turn[0] % 2 == 1):
             print(player2 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.updatePlayer(player1, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player1, "Lose")
+                db.addNewPlayer(player2, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.addNewPlayer(player1, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player1, 0, 1, 0)
+                db.addNewPlayer(player2, 1, 0, 0)
+
         elif(turn[0] % 2 == 0):
             print(player1 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.updatePlayer(player2, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player2, "Lose")
+                db.addNewPlayer(player1, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.addNewPlayer(player2, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player2, 0, 1, 0)
+                db.addNewPlayer(player1, 1, 0, 0)
+
         gameOver()
     elif(array[6] == "X" and array[7] == "X" and array[8] == "X") or (array[6] == "O" and array[7] == "O" and array[8] == "O"):
         if(turn[0] % 2 == 1):
             print(player2 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.updatePlayer(player1, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player1, "Lose")
+                db.addNewPlayer(player2, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.addNewPlayer(player1, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player1, 0, 1, 0)
+                db.addNewPlayer(player2, 1, 0, 0)
+
         elif(turn[0] % 2 == 0):
             print(player1 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.updatePlayer(player2, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player2, "Lose")
+                db.addNewPlayer(player1, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.addNewPlayer(player2, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player2, 0, 1, 0)
+                db.addNewPlayer(player1, 1, 0, 0)
+
         gameOver()
 
     #Vertical lines win
     elif(array[0] == "X" and array[3] == "X" and array[6] == "X") or (array[0] == "O" and array[3] == "O" and array[6] == "O"):
         if(turn[0] % 2 == 1):
             print(player2 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.updatePlayer(player1, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player1, "Lose")
+                db.addNewPlayer(player2, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.addNewPlayer(player1, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player1, 0, 1, 0)
+                db.addNewPlayer(player2, 1, 0, 0)
+            
         elif(turn[0] % 2 == 0):
             print(player1+ " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.updatePlayer(player2, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player2, "Lose")
+                db.addNewPlayer(player1, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.addNewPlayer(player2, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player2, 0, 1, 0)
+                db.addNewPlayer(player1, 1, 0, 0)
+        
         gameOver()
     elif(array[1] == "X" and array[4] == "X" and array[7] == "X") or (array[1] == "O" and array[4] == "O" and array[7] == "O"):
         if(turn[0] % 2 == 1):
             print(player2 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.updatePlayer(player1, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player1, "Lose")
+                db.addNewPlayer(player2, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.addNewPlayer(player1, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player1, 0, 1, 0)
+                db.addNewPlayer(player2, 1, 0, 0)
+
         elif(turn[0] % 2 == 0):
             print(player1 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.updatePlayer(player2, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player2, "Lose")
+                db.addNewPlayer(player1, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.addNewPlayer(player2, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player2, 0, 1, 0)
+                db.addNewPlayer(player1, 1, 0, 0)
+
         gameOver()
     elif(array[2] == "X" and array[5] == "X" and array[8] == "X") or (array[0] == "O" and array[1] == "O" and array[2] == "O"):
         if(turn[0] % 2 == 1):
             print(player2 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.updatePlayer(player1, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player1, "Lose")
+                db.addNewPlayer(player2, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.addNewPlayer(player1, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player1, 0, 1, 0)
+                db.addNewPlayer(player2, 1, 0, 0)
+
         elif(turn[0] % 2 == 0):
             print(player1 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.updatePlayer(player2, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player2, "Lose")
+                db.addNewPlayer(player1, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.addNewPlayer(player2, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player2, 0, 1, 0)
+                db.addNewPlayer(player1, 1, 0, 0)
+
         gameOver()
 
     #Cross lines win
     elif(array[0] == "X" and array[4] == "X" and array[8] == "X") or (array[0] == "O" and array[4] == "O" and array[8] == "O"):
         if(turn[0] % 2 == 1):
             print(player2 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.updatePlayer(player1, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player1, "Lose")
+                db.addNewPlayer(player2, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.addNewPlayer(player1, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player1, 0, 1, 0)
+                db.addNewPlayer(player2, 1, 0, 0)
+
         elif(turn[0] % 2 == 0):
             print(player1 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.updatePlayer(player2, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player2, "Lose")
+                db.addNewPlayer(player1, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.addNewPlayer(player2, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player2, 0, 1, 0)
+                db.addNewPlayer(player1, 1, 0, 0)
+
         gameOver()
     elif(array[2] == "X" and array[4] == "X" and array[6] == "X") or (array[2] == "O" and array[4] == "O" and array[6] == "O"):
         if(turn[0] % 2 == 1):
             print(player2 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.updatePlayer(player1, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player1, "Lose")
+                db.addNewPlayer(player2, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player2, "Win")
+                db.addNewPlayer(player1, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player1, 0, 1, 0)
+                db.addNewPlayer(player2, 1, 0, 0)
+
         elif(turn[0] % 2 == 0):
             print(player1 + " won!")
+            player1InDB = db.checkPlayer(player1)
+            player2InDB = db.checkPlayer(player2)
+            if(player1InDB == True and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.updatePlayer(player2, "Lose")
+            elif(player1InDB == True and player2InDB == False):
+                db.updatePlayer(player2, "Lose")
+                db.addNewPlayer(player1, 1, 0, 0)
+            elif(player1InDB == False and player2InDB == True):
+                db.updatePlayer(player1, "Win")
+                db.addNewPlayer(player2, 0, 1, 0)
+            elif(player1InDB == False and player2InDB == False):
+                db.addNewPlayer(player2, 0, 1, 0)
+                db.addNewPlayer(player1, 1, 0, 0)
+
         gameOver()
     elif(fieldsTaken[0] == 9):
         tie()
