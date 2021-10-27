@@ -11,26 +11,26 @@ mydb = pymysql.connect(
     database = "TicTacToe"
 )
 
+#Function to check if player already exist in database
 def checkPlayer(player):
     mycursor = mydb.cursor()
     query = "SELECT Username FROM Users WHERE Username = %s"
     mycursor.execute(query , (player))
     result = mycursor.fetchone()
-    '''for x in result:
-        x = int(float(x))
-        print(result[x])
-        if(result[x] == player):
-            return True
-    return False'''
-    '''
-    if(result == player):
+    print(player)
+    if(result == None):
+        print("False")
+        return False
+    else:
+        print("True")
         return True
-    return False'''
-    for x in result:
+    '''for x in result:
         if(x == player):
             return True
-    return False
+        else:
+            return False'''
 
+#Function to add new player to database with his current statistics
 def addNewPlayer(player, win, lose, tie):
     player = player
     win = win
@@ -39,11 +39,12 @@ def addNewPlayer(player, win, lose, tie):
     mycursor = mydb.cursor()
     query = "INSERT INTO Users (Username, Wins, Loses, Ties) VALUES (%s, %s, %s, %s)"
     mycursor.execute(query, (player, win, lose, tie))
-    result = mycursor.fetchone()
     mydb.commit()
 
+#Function to update player data in database. Updates statistics based on username
 def updatePlayer(player, results):
     help = 0
+    print(player)
     values = {
         "wins" : 0,
         "loses" : 0,
@@ -55,13 +56,10 @@ def updatePlayer(player, results):
     result = mycursor.fetchone()
     for x in result:
         if(help == 0):
-            print(x)
             values["wins"] = x
         elif(help == 1):
-            print(x)
             values["loses"] = x
         elif(help == 2):
-            print(x)
             values["ties"] = x
         help += 1
     if(results == "Win"):

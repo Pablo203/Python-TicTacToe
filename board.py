@@ -14,7 +14,7 @@ class Draw:
   + - + - + - +
 3 | '''+self.array[6]+''' | '''+self.array[7]+''' | '''+self.array[8]+''' |
   + - + - + - +'''
-        #Display board and some info
+        #Display board and player info
         print(board)
         print()
         print(self.p1 + ": X")
